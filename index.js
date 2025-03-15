@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { connectToMongoDB } = require('./connect');
+const mongoose = require('mongoose');
 const urlRouter = require('./routes/url');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -12,7 +12,10 @@ const userRoute = require('./routes/user');
 const app = express();
 const PORT = process.env.PORT || 8001;
 
-connectToMongoDB(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('Failed to connect to MongoDB', err));
 

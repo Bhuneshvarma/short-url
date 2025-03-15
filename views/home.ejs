@@ -15,7 +15,7 @@
 <body>
     <h1>URL shortener</h1>
     <% if (locals.id) { %>
-        <p>URL Generated: <a target="_blank" href="https://short-k0xewx9lm-bhuneshs-projects.vercel.app/<%= id %>">https://short-k0xewx9lm-bhuneshs-projects.vercel.app/url/<%= id
+        <p>URL Generated: <a target="_blank" href="http://localhost:8001/url/<%= id %>">http://localhost:8001/url/<%= id
                     %></a>
         </p>
         <% } %>
@@ -32,7 +32,6 @@
                     <table>
                         <thead>
                             <th>S. No</th>
-                            <th>UserName</th>
                             <th>ShortID</th>
                             <th>Redirect</th>
                             <th>Clicks</th>
@@ -42,9 +41,6 @@
                                 <tr>
                                     <td>
                                         <%= index + 1 %>
-                                    </td>
-                                    <td>
-                                        <%=  %>
                                     </td>
                                     <td>
                                         <%= url.shortId %>

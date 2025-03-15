@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const urlRouter = require('./routes/url');
@@ -7,10 +10,8 @@ const { checkForAuthentication, restrictTo } = require('./middleware/auth');
 const URL = require('./models/url');
 const staticRoute = require('./routes/staticRoute');
 const userRoute = require('./routes/user');
-const dotenv = require('dotenv');
 
 const app = express();
-dotenv.config();
 const PORT = process.env.PORT || 8001;
 
 mongoose.connect(process.env.MONGODB_URI)

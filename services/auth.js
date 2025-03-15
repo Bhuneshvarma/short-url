@@ -11,7 +11,11 @@ function setUser(user) {
 
 function getUser(token) {
     if (!token) return null;
-    return jwt.verify(token, secret);
+    try {
+        return jwt.verify(token, secret);
+    } catch (err) {
+        throw new Error('Invalid Token');
+    }
 }
 
 module.exports = {

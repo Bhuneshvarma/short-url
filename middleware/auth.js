@@ -1,18 +1,20 @@
+const jwt = require('jsonwebtoken');
 const { getUser } = require('../services/auth'); // Ensure the correct path
 
+const checkForAuthentication = (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).send('Access Denied');
+    }
 
-function checkForAuthentication(req, res, next) {
-    const tokencookie = req.cookies?.token;
-    req.user = null;
-
-    if (!tokencookie) return next();
-
-    const token = tokencookie;
-    const user = getUser(token);
-    req.user = user;
-    return next();
-
-}
+    try {
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+        req.user = verified;
+        next();
+    } catch (err) {
+        res.status(400).send('Invalid Token');
+    }
+};
 
 function restrictTo(roles = []) {
     return function (req, res, next) {
@@ -22,7 +24,6 @@ function restrictTo(roles = []) {
         next();
     }
 }
-
 
 module.exports = {
     checkForAuthentication,

@@ -48,4 +48,8 @@ app.get('/url/:shortId', async (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
+
 app.listen(PORT, () => console.log(`Server is running http://localhost:${PORT}`));

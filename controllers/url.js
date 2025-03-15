@@ -29,7 +29,7 @@ async function handlegetURLAnalytics(req, res) {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
     if (!result) {
-        return res.status(404).json({ error: 'URL not found' });
+        return res.status(404).json({ error: 'URL is not found' });
     }
     return res.json({
         totalClicks: result.visitHistory.length,

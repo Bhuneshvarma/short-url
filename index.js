@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { connectToMongoDB } = require('./connect');
 const urlRouter = require('./routes/url');
@@ -11,7 +12,7 @@ const userRoute = require('./routes/user');
 const app = express();
 const PORT = process.env.PORT || 8001;
 
-connectToMongoDB(process.env.MONGODB_URI || 'mongodb://localhost:27017/short-url')
+connectToMongoDB(process.env.MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('Failed to connect to MongoDB', err));
 
@@ -28,6 +29,7 @@ app.use('/user', userRoute);
 app.use('/', staticRoute);
 
 app.get('/url/:shortId', async (req, res) => {
+    console.log(`Received request for shortId: ${req.params.shortId}`);
     const shortId = req.params.shortId;
     const entry = await URL.findOneAndUpdate(
         {
@@ -42,8 +44,10 @@ app.get('/url/:shortId', async (req, res) => {
         }
     );
     if (entry) {
+        console.log(`Redirecting to: ${entry.redirectURL}`);
         res.redirect(entry.redirectURL);
     } else {
+        console.log('URL not found');
         res.status(404).send('URL not found');
     }
 });

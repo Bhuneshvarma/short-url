@@ -32,3 +32,5 @@ Thumbs.db
 
 # GitHub Pages
 gh-pages/
+.vercel
+.env*.local

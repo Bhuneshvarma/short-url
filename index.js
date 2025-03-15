@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const urlRouter = require('./routes/url');
@@ -8,14 +7,13 @@ const { checkForAuthentication, restrictTo } = require('./middleware/auth');
 const URL = require('./models/url');
 const staticRoute = require('./routes/staticRoute');
 const userRoute = require('./routes/user');
+const dotenv = require('dotenv');
 
 const app = express();
+dotenv.config();
 const PORT = process.env.PORT || 8001;
 
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('Failed to connect to MongoDB', err));
 
@@ -56,7 +54,7 @@ app.get('/url/:shortId', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello, world!');
+    res.send('Hello, world!');
 });
 
 app.listen(PORT, () => console.log(`Server is running http://localhost:${PORT}`));

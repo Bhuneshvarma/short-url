@@ -4,7 +4,6 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js",
-    "build": "",
     "deploy": "gh-pages -d build"
   },
   "author": "",
@@ -13,6 +12,7 @@
   "homepage": "https://short-xr44x5nfy-bhuneshs-projects.vercel.app/",
   "dependencies": {
     "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",

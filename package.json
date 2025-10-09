@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "homepage": "https://short-xr44x5nfy-bhuneshs-projects.vercel.app/",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",

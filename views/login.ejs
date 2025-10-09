@@ -1,28 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-    </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | URL Shortener</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f9fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-card {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      width: 350px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .login-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #2d3748;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #4a5568;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border 0.2s;
+    }
+
+    .input-group input:focus {
+      border-color: #3182ce;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #2b6cb0;
+    }
+
+    .signup-btn {
+      background-color: transparent;
+      color: #3182ce;
+      border: 1px solid #3182ce;
+      margin-top: 12px;
+    }
+
+    .signup-btn:hover {
+      background-color: #3182ce;
+      color: #fff;
+    }
+
+    p {
+      margin-top: 18px;
+      color: #4a5568;
+      font-size: 14px;
+    }
+
+    a {
+      color: #3182ce;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-
 <body>
-  <h1>Login</h1>
-  <form action="/user/login" method="post">
-    <label for="email">Email</label> 
-    <input type="email" name="email" id="email" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <button type="submit">Login</button>
-     <!-- Sign Up Button -->
-  <button type="button" onclick="window.location.href='/signup'">Sign Up</button>
-  </form>
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Welcome Back 👋</h2>
+      <form action="/user/login" method="POST">
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <button type="button" class="signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
+      <p>Don’t have an account? <a href="/signup">Create one</a></p>
+    </div>
+  </div>
 </body>
-
 </html>

@@ -114,6 +114,12 @@
     a:hover {
       text-decoration: underline;
     }
+
+    .error-box {
+      color: red;
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -134,6 +140,16 @@
       <button type="button" class="signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
       <p>Don’t have an account? <a href="/signup">Create one</a></p>
     </div>
+
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+      <div class="error-box">
+        <ul style="list-style-type: none; padding: 0;">
+          <% errors.forEach(function(error) { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
   </div>
 </body>
 </html>

@@ -1,27 +1,27 @@
-// connect.js
 const mongoose = require('mongoose');
+
 mongoose.set('strictQuery', true);
 
-let cached = global.mongoose;
-
-if (!cached) {
-    cached = global.mongoose = { conn: null, promise: null };
-}
+let isConnected = false;
 
 async function connectToMongoDB(uri) {
-    if (cached.conn) {
-        return cached.conn; // return cached connection
-    }
+  if (isConnected) {
+    console.log('✅ Using existing MongoDB connection');
+    return;
+  }
 
-    if (!cached.promise) {
-        cached.promise = mongoose.connect(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }).then((mongoose) => mongoose);
-    }
+  try {
+    const db = await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-    cached.conn = await cached.promise;
-    return cached.conn;
+    isConnected = db.connections[0].readyState;
+    console.log('✅ Connected to MongoDB');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err);
+    throw new Error('Failed to connect to MongoDB');
+  }
 }
 
 module.exports = { connectToMongoDB };

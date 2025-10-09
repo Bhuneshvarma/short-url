@@ -12,14 +12,8 @@ const userRoute = require('./routes/user');
 const staticRoute = require('./routes/staticRoute');
 const URL = require('./models/url');
 
-
 const app = express();
-const PORT = process.env.PORT || 5000; // ✅ Default fallback port
-
-// 🟢 Connect to MongoDB
-connectToMongoDB(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Connected to MongoDB'))
-  .catch((err) => console.error('❌ Failed to connect to MongoDB:', err.message));
+const PORT = process.env.PORT || 5000;
 
 // 🧱 View Engine Setup
 app.set('view engine', 'ejs');
@@ -33,7 +27,7 @@ app.use(checkForAuthentication);
 
 // 🧭 Routes
 app.use('/', staticRoute);
-app.use('/url', restrictTo(['NORMAL']), urlRouter);
+app.use('/url', restrictTo(['NORMAL', 'ADMIN']), urlRouter);
 app.use('/user', userRoute);
 
 // 🔗 Redirect Handler for Short URLs
@@ -53,12 +47,22 @@ app.get('/url/:shortId', async (req, res) => {
 
     return res.redirect(entry.redirectURL);
   } catch (error) {
-    console.error('Error redirecting URL:', error);
+    console.error('❌ Error redirecting URL:', error);
     return res.status(500).send('Internal Server Error');
   }
 });
 
-// 🚀 Start Server
-app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
-});
+// 🟢 MongoDB + Server Initialization
+(async () => {
+  try {
+    await connectToMongoDB(process.env.MONGODB_URI);
+    console.log('✅ Connected to MongoDB');
+
+    // ❗Only one app.listen (important for Vercel)
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    console.error('❌ Failed to connect to MongoDB:', err);
+  }
+})();
